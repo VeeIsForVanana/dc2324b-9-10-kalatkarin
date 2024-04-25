@@ -1,0 +1,141 @@
+name: Autograding Tests
+'on':
+- push
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Test 1
+      id: test-1
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Test 1
+        setup-command: npm install
+        command: npm test item01
+        timeout: 5
+        max-score: 10
+    - name: Test 2
+      id: test-2
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Test 2
+        setup-command: npm install
+        command: npm test item2
+        timeout: 5
+        max-score: 10
+    - name: Test 3
+      id: test-3
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Test 3
+        setup-command: npm install
+        command: npm test item3
+        timeout: 5
+        max-score: 10
+    - name: Test 4
+      id: test-4
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Test 4
+        setup-command: npm install
+        command: npm test item4
+        timeout: 5
+        max-score: 10
+    - name: Test 5
+      id: test-5
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Test 5
+        setup-command: npm install
+        command: npm test item5
+        timeout: 5
+        max-score: 5
+    - name: Test 6
+      id: test-6
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Test 6
+        setup-command: npm install
+        command: npm test item6
+        timeout: 5
+        max-score: 5
+    - name: Test 7
+      id: test-7
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Test 7
+        setup-command: npm install
+        command: npm test item7
+        timeout: 5
+        max-score: 5
+    - name: Test 8
+      id: test-8
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Test 8
+        setup-command: npm install
+        command: npm test item8
+        timeout: 5
+        max-score: 5
+    - name: Test 9
+      id: test-9
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Test 9
+        setup-command: npm install
+        command: npm test item9
+        timeout: 5
+        max-score: 5
+    - name: Test 10
+      id: test-10
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Test 10
+        setup-command: npm install
+        command: npm test item10
+        timeout: 5
+        max-score: 5
+    - name: Test 11
+      id: test-11
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Test 11
+        setup-command: npm install
+        command: npm test item11
+        timeout: 5
+        max-score: 30
+    - name: Bonus
+      id: bonus
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: Bonus
+        setup-command: npm install
+        command: npm test itemBONUS
+        timeout: 5
+        max-score: 10
+    - name: Autograding Reporter
+      uses: education/autograding-grading-reporter@v1
+      env:
+        TEST-1_RESULTS: "${{steps.test-1.outputs.result}}"
+        TEST-2_RESULTS: "${{steps.test-2.outputs.result}}"
+        TEST-3_RESULTS: "${{steps.test-3.outputs.result}}"
+        TEST-4_RESULTS: "${{steps.test-4.outputs.result}}"
+        TEST-5_RESULTS: "${{steps.test-5.outputs.result}}"
+        TEST-6_RESULTS: "${{steps.test-6.outputs.result}}"
+        TEST-7_RESULTS: "${{steps.test-7.outputs.result}}"
+        TEST-8_RESULTS: "${{steps.test-8.outputs.result}}"
+        TEST-9_RESULTS: "${{steps.test-9.outputs.result}}"
+        TEST-10_RESULTS: "${{steps.test-10.outputs.result}}"
+        TEST-11_RESULTS: "${{steps.test-11.outputs.result}}"
+        BONUS_RESULTS: "${{steps.bonus.outputs.result}}"
+      with:
+        runners: test-1,test-2,test-3,test-4,test-5,test-6,test-7,test-8,test-9,test-10,test-11,bonus
