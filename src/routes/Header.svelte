@@ -50,7 +50,7 @@
 		<h1>
 			<a href="/" class="btn btn-ghost gap-3">
 				<Fa icon={faRocket} />
-				UPCSI Devcamp 2324b Assignment 9-10
+				imissher
 			</a>
 		</h1>
 

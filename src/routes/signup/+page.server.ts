@@ -2,34 +2,48 @@ import { auth } from '$lib/auth';
 import { AUTH_TOKEN_EXPIRY_SECONDS } from '$lib/constants.server';
 import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
+import { getUser } from '$lib/db/index';
 
 export function _usernameRequired(username) {
-	/* Put your code here. DO NOT REMOVE THE return */
+	if (username == ""){
+		return fail(422, { error:"username is required" });
+	}
 	return;
 }
 
 export function _passwordRequired(password) {
-	/* Put your code here. DO NOT REMOVE THE return */
+	if (password == ""){
+		return fail(422, { error:"username is required" });
+	}
 	return;
 }
 
 export function _passwordLength(password) {
-	/* Put your code here. DO NOT REMOVE THE return */
+	if (password.length < 8){
+		return fail(422, { error:"password should not be less than 9 characters" });
+	}
 	return;
 }
 
 export function _passwordMatch(password, password_confirm) {
-	/* Put your code here. DO NOT REMOVE THE return */
+	if (password != password_confirm){
+		return fail(422, {error: "ayosen mo lang bakla"})
+	}
 	return;
 }
 
 export function _passwordComplexity(containsUppercase, containsNumber, containsSpecialCharacter) {
-	/* Put your code here. DO NOT REMOVE THE return */
+	if (containsUppercase == false || containsNumber == false || containsSpecialCharacter == false){
+		return fail (422, {error: "password should contain at least 1 capital letter, a number, and a special character! hulaan mo nalang alin kulang"})
+	}
 	return;
 }
 
 export async function _userExists(username) {
-	/* Put your code here. DO NOT REMOVE THE return */
+	if (getUser(username) != undefined){
+		return fail(422, { error: "user already exists" });
+	}
+
 	return;
 }
 

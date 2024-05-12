@@ -4,8 +4,20 @@ import bcrypt from 'bcrypt';
 import { createUser, getUsers, setToken } from '$lib/db';
 import { seed_user } from './seed';
 
+var attempts = 0;
+
 export function attemptCounter(match) {
-	/* Put your code here. DO NOT REMOVE THE return */
+	if (!match){
+		attempts += 1;
+		if (attempts < 5){
+			return err(new Error('mali'));
+		}
+		if (attempts == 5){
+			attempts = 0;
+			throw new Error("rebisco ka ba kasi sumosobra ka na")
+		}
+	}
+
 	return;
 }
 
